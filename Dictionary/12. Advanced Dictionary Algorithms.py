@@ -190,3 +190,89 @@ data = {
 }
 for key in sorted(data):
     print(key,data[key])
+
+# Dictionary ke values ascending order me print karo
+for values in sorted(data.values()):
+    print(values)
+
+# Manual merge of two dictionaries
+d1 = {
+    "banana": 30,
+    "apple": 50,
+    "mango": 40,
+    "orange": 20
+}
+d2 = {
+    "Rahul":90,
+    "Amit":70,
+    "Neha":95
+}
+result = d1.copy()
+for key,value in d2.items():
+    result[key] = value
+# print(result)
+
+# Duplicate values find karo.
+marks = {
+    "banana": 30,
+    "apple": 20,
+    "mango": 20,
+    "orange": 20
+}
+empty = {}
+dup = []
+for values in marks.values():
+    if values in empty:
+        dup.append(values)
+    else:
+        empty[values] = True
+# print(dup)
+# print(empty)
+
+# find the highest marks student manually
+students = {
+    "jai": 78,
+    "sakshi": 89,
+    "kundan": 57
+}
+max = -1
+max_student = ""
+for key,value in students.items():
+    if value > max:
+        max = value
+        max_student = key
+print(f"student: {max_student} got the highest marks is {max}")
+
+# lowest marks
+min = None
+min_student = None
+# for key,value in students.items():
+#     if min < value:
+#         min = value
+#         min_student = key
+# print(f"student: {max_student} got the lowest marks is {max}")
+
+# Ek list of tuples ko department-wise group karo
+data_std = [
+    ("Rahul","IT"),
+    ("Amit","HR"),
+    ("Neha","IT"),
+    ("Kiran","HR")
+]
+d ={}
+for name,dept in data_std:
+    if dept not in d:
+        d[dept] = []
+    d[dept].append(name)
+# print(d)
+
+data = ["a", "b", "a", "c", "b", "a"]
+
+freq = {}
+for ch in data:
+    freq[ch] = freq.get(ch, 0) + 1
+result = {}
+for key, value in freq.items():
+    result.setdefault(value, []).append(key)
+print(freq)
+print(result)
