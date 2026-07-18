@@ -182,3 +182,11 @@ for words in text:
 # print(freq)
 
 # Dictionary ke keys alphabetically print karo
+data = {
+    "banana": 30,
+    "apple": 50,
+    "mango": 40,
+    "orange": 20
+}
+for key in sorted(data):
+    print(key,data[key])
