@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Lists - Complete Guide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* Section Grid */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* Card Styling */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .card.advanced {
+            border-left-color: #764ba2;
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .card-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .card.advanced .card-title {
+            color: #764ba2;
+        }
+
+        /* Explanation */
+        .explanation {
+            background: #f0f4ff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 0.95em;
+            border-left: 4px solid #667eea;
+            color: #3e4a61;
+        }
+
+        .card.advanced .explanation {
+            background: #faf4ff;
+            border-left-color: #764ba2;
+        }
+
+        /* Bullet Points */
+        .bullet-list {
+            list-style: none;
+            margin: 10px 0;
+        }
+
+        .bullet-list li {
+            padding: 6px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95em;
+        }
+
+        .bullet-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .card.advanced .bullet-list li:before {
+            color: #764ba2;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+            border: 1px solid #34495e;
+        }
+
+        .code-block code {
+            color: inherit;
+        }
+
+        /* Output Box */
+        .output-box {
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #2c3e50;
+            border-left: 4px solid #27ae60;
+        }
+
+        .output-box:before {
+            content: "Output: ";
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        /* Syntax Classes */
+        .hljs-keyword { color: #d63384; }
+        .hljs-string { color: #198754; }
+        .hljs-number { color: #0d6efd; }
+        .hljs-literal { color: #0d6efd; }
+        .hljs-attr { color: #0d6efd; }
+        .hljs-built_in { color: #0dcaf0; }
+
+        /* Special Sections */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .table-section {
+            overflow-x: auto;
+        }
+
+        .method-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+        }
+
+        .method-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .method-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        .method-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .method-table .method-name {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        /* Time Complexity Table */
+        .complexity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .complexity-item {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #667eea30;
+            text-align: center;
+        }
+
+        .complexity-operation {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .complexity-value {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* Real World Applications */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .app-item {
+            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #667eea20;
+        }
+
+        .app-icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        .app-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+
+        /* Quick Tips */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .tip-item {
+            background: #ecfdf5;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            font-size: 0.9em;
+            color: #065f46;
+        }
+
+        .tip-item:before {
+            content: "✓ ";
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        /* Interview Programs */
+        .program-item {
+            background: linear-gradient(135deg, #fef3c710 0%, #fdb04210 100%);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 8px 0;
+            font-size: 0.95em;
+            color: #78350f;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .app-grid, .complexity-grid, .tips-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .card {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .header {
+                box-shadow: none;
+            }
+        }
+
+        /* Highlight tweaks */
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🐍 PYTHON LISTS – COMPLETE GUIDE</h1>
+            <p>From Basic to Advanced Concepts | Master Python Lists in One Resource</p>
+        </div>
+
+        <!-- Sections Grid -->
+        <div class="sections-grid">
+            <!-- Section 1: Introduction -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">1</div>
+                    <div class="card-title">Introduction to Lists</div>
+                </div>
+                <div class="explanation">
+                    A list is an ordered, mutable collection that stores multiple values. Lists can contain duplicate values and different data types.
+                </div>
+                <ul class="bullet-list">
+                    <li><strong>Ordered</strong> - Elements have a specific position</li>
+                    <li><strong>Mutable</strong> - Can be changed after creation</li>
+                    <li><strong>Allow Duplicates</strong> - Same values can appear multiple times</li>
+                    <li><strong>Mixed Types</strong> - Can store any data type</li>
+                </ul>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana", "Mango"]
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Apple&#x27;, &#x27;Banana&#x27;, &#x27;Mango&#x27;]</div>
+            </div>
+
+            <!-- Section 2: Creating Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">2</div>
+                    <div class="card-title">Creating Lists</div>
+                </div>
+                <div class="explanation">Multiple ways to create lists with different content types.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Empty List:</strong>
+                <div class="code-block"><pre><code class="language-python">my_list = []  # or list()</code></pre></div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Integer List:</strong>
+                <div class="code-block"><pre><code class="language-python">numbers = [1, 2, 3, 4, 5]</code></pre></div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">String List:</strong>
+                <div class="code-block"><pre><code class="language-python">colors = ["Red", "Green", "Blue"]</code></pre></div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Mixed List:</strong>
+                <div class="code-block"><pre><code class="language-python">mixed = [1, "Hello", 3.14, True]</code></pre></div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Nested List:</strong>
+                <div class="code-block"><pre><code class="language-python">matrix = [[1, 2, 3], [4, 5, 6]]</code></pre></div>
+            </div>
+
+            <!-- Section 3: Accessing Elements -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">3</div>
+                    <div class="card-title">Accessing Elements</div>
+                </div>
+                <div class="explanation">Access list elements using positive or negative indexing.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Positive Index (0-based):</strong>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana", "Mango"]
+print(fruits[0])  # First element
+print(fruits[1])  # Second element</code></pre></div>
+                <div class="output-box">Apple<br>Banana</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Negative Index:</strong>
+                <div class="code-block"><pre><code class="language-python">print(fruits[-1])  # Last element
+print(fruits[-2])  # Second last</code></pre></div>
+                <div class="output-box">Mango<br>Banana</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">IndexError:</strong>
+                <div class="code-block"><pre><code class="language-python">print(fruits[5])  # IndexError: list index out of range</code></pre></div>
+            </div>
+
+            <!-- Section 4: List Slicing -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">4</div>
+                    <div class="card-title">List Slicing</div>
+                </div>
+                <div class="explanation">Extract portions of a list using slice notation: list[start:end:step]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Basic Slicing [start:end]:</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [0, 1, 2, 3, 4, 5]
+print(nums[1:4])  # Index 1 to 3 (4 excluded)</code></pre></div>
+                <div class="output-box">[1, 2, 3]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Reverse [::-1]:</strong>
+                <div class="code-block"><pre><code class="language-python">print(nums[::-1])  # Reverse entire list</code></pre></div>
+                <div class="output-box">[5, 4, 3, 2, 1, 0]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Step Slicing:</strong>
+                <div class="code-block"><pre><code class="language-python">print(nums[::2])  # Every 2nd element
+print(nums[1:5:2])  # From 1 to 5, step 2</code></pre></div>
+                <div class="output-box">[0, 2, 4]<br>[1, 3]</div>
+            </div>
+
+            <!-- Section 5: Updating Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">5</div>
+                    <div class="card-title">Updating Lists</div>
+                </div>
+                <div class="explanation">Modify existing list elements by index or slice.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Change Single Item:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana", "Mango"]
+fruits[0] = "Orange"
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Orange&#x27;, &#x27;Banana&#x27;, &#x27;Mango&#x27;]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Change Multiple Items:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits[0:2] = ["Grape", "Kiwi"]
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Grape&#x27;, &#x27;Kiwi&#x27;, &#x27;Mango&#x27;]</div>
+            </div>
+
+            <!-- Section 6: Adding Elements -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">6</div>
+                    <div class="card-title">Adding Elements</div>
+                </div>
+                <div class="explanation">Add new elements to a list using append(), extend(), or insert().</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">append() - Add Single Item:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana"]
+fruits.append("Mango")
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Apple&#x27;, &#x27;Banana&#x27;, &#x27;Mango&#x27;]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">extend() - Add Multiple Items:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits.extend(["Grape", "Kiwi"])
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Apple&#x27;, &#x27;Banana&#x27;, &#x27;Mango&#x27;, &#x27;Grape&#x27;, &#x27;Kiwi&#x27;]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">insert() - Add at Specific Position:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits.insert(1, "Orange")
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Apple&#x27;, &#x27;Orange&#x27;, &#x27;Banana&#x27;, ...]</div>
+            </div>
+
+            <!-- Section 7: Removing Elements -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">7</div>
+                    <div class="card-title">Removing Elements</div>
+                </div>
+                <div class="explanation">Remove elements using remove(), pop(), clear(), or del.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">remove() - Remove by Value:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana", "Mango"]
+fruits.remove("Banana")
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Apple&#x27;, &#x27;Mango&#x27;]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">pop() - Remove by Index:</strong>
+                <div class="code-block"><pre><code class="language-python">item = fruits.pop(0)  # Returns 'Apple'
+print(fruits)</code></pre></div>
+                <div class="output-box">[&#x27;Mango&#x27;]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">clear() - Remove All:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits.clear()
+print(fruits)</code></pre></div>
+                <div class="output-box">[]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">del - Delete by Index/Slice:</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [1, 2, 3, 4, 5]
+del nums[1]  # Delete index 1
+del nums[2:4]  # Delete slice</code></pre></div>
+            </div>
+
+            <!-- Section 8: Built-in Functions -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">8</div>
+                    <div class="card-title">Built-in Functions</div>
+                </div>
+                <div class="explanation">Common functions that work with lists for various operations.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">len(), max(), min(), sum():</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [3, 1, 4, 1, 5, 9]
+print(len(nums))    # 6
+print(max(nums))    # 9
+print(min(nums))    # 1
+print(sum(nums))    # 23</code></pre></div>
+                <div class="output-box">6<br>9<br>1<br>23</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">sorted() & reversed():</strong>
+                <div class="code-block"><pre><code class="language-python">print(sorted(nums))      # [1, 1, 3, 4, 5, 9]
+print(list(reversed(nums)))  # [9, 5, 1, 4, 1, 3]</code></pre></div>
+                <div class="output-box">[1, 1, 3, 4, 5, 9]<br>[9, 5, 1, 4, 1, 3]</div>
+            </div>
+
+            <!-- Section 9: Membership Operators -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">9</div>
+                    <div class="card-title">Membership Operators</div>
+                </div>
+                <div class="explanation">Check if an element exists in a list using 'in' and 'not in' operators.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Using 'in' operator:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana", "Mango"]
+print("Apple" in fruits)    # True
+print("Grape" in fruits)    # False</code></pre></div>
+                <div class="output-box">True<br>False</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Using 'not in' operator:</strong>
+                <div class="code-block"><pre><code class="language-python">print("Grape" not in fruits)  # True
+print("Apple" not in fruits)  # False</code></pre></div>
+                <div class="output-box">True<br>False</div>
+            </div>
+
+            <!-- Section 10: List Methods Table -->
+            <div class="card full-width table-section">
+                <div class="card-header">
+                    <div class="card-number">10</div>
+                    <div class="card-title">List Methods Reference</div>
+                </div>
+                <div class="explanation">Complete table of all list methods with syntax and descriptions.</div>
+                <table class="method-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Syntax</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="method-name">append()</td>
+                            <td><code>list.append(item)</code></td>
+                            <td>Adds a single item to the end</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">extend()</td>
+                            <td><code>list.extend(iterable)</code></td>
+                            <td>Adds multiple items from an iterable</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">insert()</td>
+                            <td><code>list.insert(index, item)</code></td>
+                            <td>Inserts item at specified position</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">remove()</td>
+                            <td><code>list.remove(item)</code></td>
+                            <td>Removes first occurrence of item</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">pop()</td>
+                            <td><code>list.pop([index])</code></td>
+                            <td>Removes and returns item at index</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">clear()</td>
+                            <td><code>list.clear()</code></td>
+                            <td>Removes all items from list</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">copy()</td>
+                            <td><code>list.copy()</code></td>
+                            <td>Returns a shallow copy of list</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">count()</td>
+                            <td><code>list.count(item)</code></td>
+                            <td>Returns count of item occurrences</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">index()</td>
+                            <td><code>list.index(item)</code></td>
+                            <td>Returns index of first occurrence</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">sort()</td>
+                            <td><code>list.sort([reverse])</code></td>
+                            <td>Sorts list in place</td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">reverse()</td>
+                            <td><code>list.reverse()</code></td>
+                            <td>Reverses list in place</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 11: Looping Through Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">11</div>
+                    <div class="card-title">Looping Through Lists</div>
+                </div>
+                <div class="explanation">Iterate through list elements using different loop types.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">for Loop:</strong>
+                <div class="code-block"><pre><code class="language-python">fruits = ["Apple", "Banana", "Mango"]
+for fruit in fruits:
+    print(fruit)</code></pre></div>
+                <div class="output-box">Apple<br>Banana<br>Mango</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">while Loop:</strong>
+                <div class="code-block"><pre><code class="language-python">i = 0
+while i &lt; len(fruits):
+    print(fruits[i])
+    i += 1</code></pre></div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">enumerate() - With Index:</strong>
+                <div class="code-block"><pre><code class="language-python">for i, fruit in enumerate(fruits):
+    print(f"{i}: {fruit}")</code></pre></div>
+                <div class="output-box">0: Apple<br>1: Banana<br>2: Mango</div>
+            </div>
+
+            <!-- Section 12: List Comprehension -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">12</div>
+                    <div class="card-title">List Comprehension</div>
+                </div>
+                <div class="explanation">Create lists concisely using a single line of code. More efficient than loops.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Basic Comprehension:</strong>
+                <div class="code-block"><pre><code class="language-python">squares = [x**2 for x in range(5)]
+print(squares)</code></pre></div>
+                <div class="output-box">[0, 1, 4, 9, 16]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">With Condition (if):</strong>
+                <div class="code-block"><pre><code class="language-python">evens = [x for x in range(10) if x % 2 == 0]
+print(evens)</code></pre></div>
+                <div class="output-box">[0, 2, 4, 6, 8]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Nested Comprehension:</strong>
+                <div class="code-block"><pre><code class="language-python">matrix = [[i*j for j in range(3)] for i in range(3)]
+print(matrix)</code></pre></div>
+                <div class="output-box">[[0, 0, 0], [0, 1, 2], [0, 2, 4]]</div>
+            </div>
+
+            <!-- Section 13: Nested Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">13</div>
+                    <div class="card-title">Nested Lists</div>
+                </div>
+                <div class="explanation">Lists containing other lists. Useful for representing matrices and multi-dimensional data.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Matrix Example:</strong>
+                <div class="code-block"><pre><code class="language-python">matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]</code></pre></div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Access Nested Elements:</strong>
+                <div class="code-block"><pre><code class="language-python">print(matrix[0])      # [1, 2, 3]
+print(matrix[0][0])   # 1
+print(matrix[1][2])   # 6</code></pre></div>
+                <div class="output-box">[1, 2, 3]<br>1<br>6</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Iterate Nested:</strong>
+                <div class="code-block"><pre><code class="language-python">for row in matrix:
+    for val in row:
+        print(val, end=" ")</code></pre></div>
+                <div class="output-box">1 2 3 4 5 6 7 8 9</div>
+            </div>
+
+            <!-- Section 14: Copying Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">14</div>
+                    <div class="card-title">Copying Lists</div>
+                </div>
+                <div class="explanation">Different methods of copying with different behaviors.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Assignment (Reference):</strong>
+                <div class="code-block"><pre><code class="language-python">list1 = [1, 2, 3]
+list2 = list1  # Same reference
+list2[0] = 99
+print(list1)  # [99, 2, 3] - Changes affect both!</code></pre></div>
+                <div class="output-box">[99, 2, 3]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Shallow Copy - copy():</strong>
+                <div class="code-block"><pre><code class="language-python">list1 = [1, 2, 3]
+list2 = list1.copy()
+list2[0] = 99
+print(list1)  # [1, 2, 3] - Original unchanged</code></pre></div>
+                <div class="output-box">[1, 2, 3]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Shallow Copy - list() & [:]:</strong>
+                <div class="code-block"><pre><code class="language-python">list3 = list(list1)  # or list1[:]
+# Both create shallow copies</code></pre></div>
+            </div>
+
+            <!-- Section 15: Sorting Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">15</div>
+                    <div class="card-title">Sorting Lists</div>
+                </div>
+                <div class="explanation">Sort list elements using sort() or sorted() method.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">sort() - In-place:</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [3, 1, 4, 1, 5, 9]
+nums.sort()
+print(nums)  # [1, 1, 3, 4, 5, 9]</code></pre></div>
+                <div class="output-box">[1, 1, 3, 4, 5, 9]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">sorted() - New List:</strong>
+                <div class="code-block"><pre><code class="language-python">sorted_nums = sorted(nums, reverse=True)
+print(sorted_nums)  # [9, 5, 4, 3, 1, 1]</code></pre></div>
+                <div class="output-box">[9, 5, 4, 3, 1, 1]</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Sort with Key:</strong>
+                <div class="code-block"><pre><code class="language-python">words = ["apple", "pie", "zoo", "my"]
+words.sort(key=len)  # Sort by length
+print(words)  # ['my', 'zoo', 'pie', 'apple']</code></pre></div>
+                <div class="output-box">[&#x27;my&#x27;, &#x27;zoo&#x27;, &#x27;pie&#x27;, &#x27;apple&#x27;]</div>
+            </div>
+
+            <!-- Section 16: Packing & Unpacking -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">16</div>
+                    <div class="card-title">Packing & Unpacking</div>
+                </div>
+                <div class="explanation">Assign list elements to multiple variables at once.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Basic Unpacking:</strong>
+                <div class="code-block"><pre><code class="language-python">coords = [10, 20, 30]
+x, y, z = coords
+print(f"x={x}, y={y}, z={z}")</code></pre></div>
+                <div class="output-box">x=10, y=20, z=30</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Unpacking with *:</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [1, 2, 3, 4, 5]
+first, *middle, last = nums
+print(first)    # 1
+print(middle)   # [2, 3, 4]
+print(last)     # 5</code></pre></div>
+                <div class="output-box">1<br>[2, 3, 4]<br>5</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">Packing into List:</strong>
+                <div class="code-block"><pre><code class="language-python">a, b, c = 1, 2, 3
+my_list = [a, b, c]
+print(my_list)  # [1, 2, 3]</code></pre></div>
+                <div class="output-box">[1, 2, 3]</div>
+            </div>
+
+            <!-- Section 17: Useful Functions with Lists -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-number">17</div>
+                    <div class="card-title">Useful Functions with Lists</div>
+                </div>
+                <div class="explanation">Built-in functions that work great with lists for advanced operations.</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">any() & all():</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [1, 2, 0, 4]
+print(any(nums))  # True (at least one truthy)
+print(all(nums))  # False (not all truthy)</code></pre></div>
+                <div class="output-box">True<br>False</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">zip():</strong>
+                <div class="code-block"><pre><code class="language-python">names = ["Alice", "Bob"]
+ages = [25, 30]
+for name, age in zip(names, ages):
+    print(f"{name}: {age}")</code></pre></div>
+                <div class="output-box">Alice: 25<br>Bob: 30</div>
+
+                <strong style="color: #667eea; font-size: 0.95em;">map() & filter():</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [1, 2, 3, 4]
+doubled = list(map(lambda x: x*2, nums))
+evens = list(filter(lambda x: x%2==0, nums))
+print(doubled)  # [2, 4, 6, 8]
+print(evens)    # [2, 4]</code></pre></div>
+                <div class="output-box">[2, 4, 6, 8]<br>[2, 4]</div>
+            </div>
+
+            <!-- Section 18: Advanced List Operations -->
+            <div class="card advanced">
+                <div class="card-header">
+                    <div class="card-number">18</div>
+                    <div class="card-title">Advanced Operations</div>
+                </div>
+                <div class="explanation">Advanced techniques for experienced Python developers.</div>
+
+                <strong style="color: #764ba2; font-size: 0.95em;">Concatenation & Repetition:</strong>
+                <div class="code-block"><pre><code class="language-python">list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+combined = list1 + list2  # [1, 2, 3, 4, 5, 6]
+repeated = list1 * 2      # [1, 2, 3, 1, 2, 3]</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em;">Flatten Nested List:</strong>
+                <div class="code-block"><pre><code class="language-python">nested = [[1, 2], [3, 4], [5, 6]]
+flat = [x for row in nested for x in row]
+print(flat)  # [1, 2, 3, 4, 5, 6]</code></pre></div>
+                <div class="output-box">[1, 2, 3, 4, 5, 6]</div>
+
+                <strong style="color: #764ba2; font-size: 0.95em;">Lambda Sorting:</strong>
+                <div class="code-block"><pre><code class="language-python">students = [("Alice", 85), ("Bob", 75), ("Charlie", 90)]
+students.sort(key=lambda x: x[1], reverse=True)
+print(students)</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em;">List as Stack:</strong>
+                <div class="code-block"><pre><code class="language-python">stack = []
+stack.append(1)   # Push
+stack.append(2)
+print(stack.pop()) # Pop: 2</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em;">List as Queue:</strong>
+                <div class="code-block"><pre><code class="language-python">from collections import deque
+queue = deque([1, 2, 3])
+queue.append(4)    # Enqueue
+print(queue.popleft())  # Dequeue: 1</code></pre></div>
+            </div>
+
+            <!-- Section 19: Time Complexity -->
+            <div class="card advanced full-width">
+                <div class="card-header">
+                    <div class="card-number">19</div>
+                    <div class="card-title">Time Complexity Analysis</div>
+                </div>
+                <div class="explanation">Understanding performance of list operations is crucial for writing efficient code.</div>
+                <div class="complexity-grid">
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Access</div>
+                        <div class="complexity-value">O(1)</div>
+                    </div>
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Append</div>
+                        <div class="complexity-value">O(1)</div>
+                    </div>
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Insert</div>
+                        <div class="complexity-value">O(n)</div>
+                    </div>
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Delete</div>
+                        <div class="complexity-value">O(n)</div>
+                    </div>
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Search</div>
+                        <div class="complexity-value">O(n)</div>
+                    </div>
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Sort</div>
+                        <div class="complexity-value">O(n log n)</div>
+                    </div>
+                    <div class="complexity-item">
+                        <div class="complexity-operation">Pop Last</div>
+                        <div class="complexity-value">O(1)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 20: Interview Programs -->
+            <div class="card advanced full-width">
+                <div class="card-header">
+                    <div class="card-number">20</div>
+                    <div class="card-title">Interview Programs</div>
+                </div>
+                <div class="explanation">Common interview questions involving list manipulation.</div>
+
+                <strong style="color: #764ba2; font-size: 0.95em; display: block; margin: 10px 0;">Reverse List:</strong>
+                <div class="code-block"><pre><code class="language-python">def reverse_list(lst):
+    return lst[::-1]
+# Or: lst.reverse()
+print(reverse_list([1, 2, 3]))  # [3, 2, 1]</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em; display: block; margin: 10px 0;">Remove Duplicates:</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [1, 2, 2, 3, 3, 3, 4]
+unique = list(set(nums))
+print(unique)  # [1, 2, 3, 4] (order may vary)</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em; display: block; margin: 10px 0;">Find Largest & Second Largest:</strong>
+                <div class="code-block"><pre><code class="language-python">nums = [5, 2, 8, 1, 9]
+largest = max(nums)  # 9
+second_largest = sorted(nums)[-2]  # 8
+print(f"Max: {largest}, 2nd: {second_largest}")</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em; display: block; margin: 10px 0;">Flatten Nested List:</strong>
+                <div class="code-block"><pre><code class="language-python">nested = [[1, 2], [3, [4, 5]]]
+def flatten(lst):
+    result = []
+    for item in lst:
+        if isinstance(item, list):
+            result.extend(flatten(item))
+        else:
+            result.append(item)
+    return result</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em; display: block; margin: 10px 0;">Check Palindrome List:</strong>
+                <div class="code-block"><pre><code class="language-python">def is_palindrome(lst):
+    return lst == lst[::-1]
+print(is_palindrome([1, 2, 3, 2, 1]))  # True</code></pre></div>
+
+                <strong style="color: #764ba2; font-size: 0.95em; display: block; margin: 10px 0;">Merge Lists:</strong>
+                <div class="code-block"><pre><code class="language-python">list1 = [1, 3, 5]
+list2 = [2, 4, 6]
+merged = sorted(list1 + list2)
+print(merged)  # [1, 2, 3, 4, 5, 6]</code></pre></div>
+            </div>
+
+            <!-- Section 21: Real World Applications -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-number">21</div>
+                    <div class="card-title">Real-World Applications</div>
+                </div>
+                <div class="explanation">Practical use cases of lists in real-world Python applications.</div>
+                <div class="app-grid">
+                    <div class="app-item">
+                        <div class="app-icon">📚</div>
+                        <div class="app-name">Student Management</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🛒</div>
+                        <div class="app-name">Shopping Cart</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">📊</div>
+                        <div class="app-name">Data Analysis</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🤖</div>
+                        <div class="app-name">Machine Learning</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🎮</div>
+                        <div class="app-name">Game Development</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🌐</div>
+                        <div class="app-name">Web Development</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 22: Quick Tips -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-number">22</div>
+                    <div class="card-title">Quick Tips & Best Practices</div>
+                </div>
+                <div class="explanation">Essential tips to write better list code and avoid common mistakes.</div>
+                <div class="tips-grid">
+                    <div class="tip-item">Use meaningful variable names for clarity</div>
+                    <div class="tip-item">Prefer list comprehension over loops</div>
+                    <div class="tip-item">Use append() instead of + for single items</div>
+                    <div class="tip-item">Use copy() to avoid reference issues</div>
+                    <div class="tip-item">Learn slicing thoroughly - it's powerful</div>
+                    <div class="tip-item">Practice every day to master lists</div>
+                    <div class="tip-item">Use enumerate() when you need both value and index</div>
+                    <div class="tip-item">Understand time complexity for optimization</div>
+                    <div class="tip-item">Use list.extend() for multiple items</div>
+                    <div class="tip-item">Remember lists are mutable - be careful with assignments</div>
+                    <div class="tip-item">Use sorted() to create new sorted list</div>
+                    <div class="tip-item">Use any() and all() for boolean checks</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>🐍 Python Lists - Complete Guide</strong></p>
+            <p>Master the fundamentals and advanced techniques of Python lists</p>
+            <p style="font-size: 0.85em; margin-top: 15px; opacity: 0.9;">
+                💡 Print this page for offline reference | 📱 Share on social media | 🎓 Use as a study guide
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Syntax highlighting
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+        });
+    </script>
+</body>
+</html>
