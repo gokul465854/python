@@ -45,3 +45,50 @@ result = {
     if x % 2 == 0 and x % 3 == 0
 }
 print(result)
+
+# Using Functions
+num = [-5,-2,3,4]
+result = [abs(x) for x in num]
+print(result)
+
+name = ["jai","sakshi","kundan"]
+result = {w.capitalize() for w in name}
+print(result)
+
+# Unique Email Domains
+emails = [
+    "a@gmail.com",
+    "b@yahoo.com",
+    "c@gmail.com"
+]
+domain = {
+    email.split("@")[1]
+    for email in emails
+}
+print(domain)
+
+# Unique Lengths
+words = [
+    "car",
+    "apple",
+    "dog",
+    "banana"
+]
+len = {
+    len(w)
+    for w in words
+}
+print(len)
+
+# Unique First Letters
+worda = [
+    "apple",
+    "banana",
+    "cat",
+    "ball"
+]
+unique = {
+    unique[0]
+    for unique in worda
+}
+print(unique)
